@@ -1,13 +1,17 @@
 Package: forestscaling
-Title: What the Package Does (One Line, Title Case)
+Title: Functions and Themes for Forest Light Scaling Project
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Quentin",
+           family = "Read",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "qread@sesync.org",)
+Description: This is a package that contains all the functions and plotting themes included in the data analysis and visualization pipeline for the "ForestLight" paper. Originally created by QDR on 04 November 2019.
 License: What license it uses
 Encoding: UTF-8
 LazyData: true
+Imports: 
+    ggplot2,
+    dplyr,
+    tidyr,
+    purrr
