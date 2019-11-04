@@ -1,8 +1,13 @@
-# Logarithmic binning function
-# x = diameter or biomass
-# y = production
-# n = number of bins
-
+#' Logarithmic binning function
+#'
+#' @param x Vector of values to be binned in the x dimension. Usually diameter.
+#' @param y Vector of values to be binned in the y dimension (not required, defaults to \code{NULL}). Usually something like biomass production.
+#' @param n Integer, number of bins
+#'
+#' @return A data frame with columns \code{bin_midpoint} (midpoint of bins on x-axis), \code{bin_value} (height of bins), \code{bin_count} (number of individuals in bins), \code{bin_min} (lower edge of bins on x-axis), \code{bin_max} (upper edge of bins on x-axis).
+#'
+#' @seealso \code{\link{logbin_setedges}}
+#' @export
 logbin <- function(x, y = NULL, n) {
   logx <- log10(x)                                           # log transform x value (biomass)
   bin_edges <- seq(min(logx), max(logx), length.out = n + 1) # get edges of bins
@@ -22,22 +27,30 @@ logbin <- function(x, y = NULL, n) {
   if (!is.null(y)) {
     rawy <- tapply(y, bin_factor, sum)                       # sum y value (production) in each bin
     rawy[is.na(rawy)] <- 0                                   # add zeroes back in if present
-    bin_values <- as.numeric(rawy/bin_widths)                # divide production by width for each bin 
+    bin_values <- as.numeric(rawy/bin_widths)                # divide production by width for each bin
   }
   else {
     bin_values <- as.numeric(bin_counts/bin_widths)          # 1-dimensional case.
   }
-  
+
   return(data.frame(bin_midpoint = bin_midpoints,            # return result!
                     bin_value = bin_values,                  # also add bin min and max for bar plot purposes
                     bin_count = as.numeric(bin_counts),
                     bin_min = 10^bin_edges[1:n],
                     bin_max = 10^bin_edges[2:(n+1)]))
-  
+
 }
 
-# Yet another log binning function that just takes existing bin edges and puts the trees into it.
-
+#' Logarithmic binning function with predefined edges
+#'
+#' @param x Vector of values to be binned in the x dimension. Usually diameter.
+#' @param y Vector of values to be binned in the y dimension (not required, defaults to \code{NULL}). Usually something like biomass production.
+#' @param edges Data frame that is output by \code{logbin()}. The bin edges from this data frame are used as pre-defined bin edges to bin \code{x} and \code{y}.
+#'
+#' @return A data frame with columns \code{bin_midpoint} (midpoint of bins on x-axis), \code{bin_value} (height of bins), \code{bin_count} (number of individuals in bins), \code{bin_min} (lower edge of bins on x-axis), \code{bin_max} (upper edge of bins on x-axis).
+#'
+#' @seealso \code{\link{logbin}}
+#' @export
 logbin_setedges <- function(x, y = NULL, edges) {
   logx <- log10(x)                                           # log transform x value (biomass)
   bin_edges <- log10(c(edges$bin_min, edges$bin_max[length(edges$bin_max)]))
@@ -55,16 +68,16 @@ logbin_setedges <- function(x, y = NULL, edges) {
   if (!is.null(y)) {
     rawy <- tapply(y, bin_factor, sum)                       # sum y value (production) in each bin
     rawy[is.na(rawy)] <- 0                                   # add zeroes back in if present
-    bin_values <- as.numeric(rawy/bin_widths)                # divide production by width for each bin 
+    bin_values <- as.numeric(rawy/bin_widths)                # divide production by width for each bin
   }
   else {
     bin_values <- as.numeric(bin_counts/bin_widths)          # 1-dimensional case.
   }
-  
+
   return(data.frame(bin_midpoint = bin_midpoints,            # return result!
                     bin_value = bin_values,                  # also add bin min and max for bar plot purposes
                     bin_count = as.numeric(bin_counts),
                     bin_min = 10^bin_edges[1:n],
                     bin_max = 10^bin_edges[2:(n+1)]))
-  
+
 }
