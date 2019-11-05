@@ -6,6 +6,9 @@
 \usage{
 insolation(lat)
 }
+\arguments{
+\item{lat}{Latitude in decimal degrees.}
+}
 \description{
 Insolation at a given latitude (approximation)
 }
