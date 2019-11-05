@@ -219,7 +219,7 @@ plot_totalprod <- function(year_to_plot = 1995,
 
 #' Plot hexbin plot of production and/or fitted production functions
 #'
-#' Arguments not described. Sorry. See \link{{plot_prod}} for similar arguments.
+#' Arguments not described. Sorry. See \code{\link{plot_prod}} for similar arguments.
 #'
 #' @export
 plot_prod_withrawdata <- function(year_to_plot = 1995,

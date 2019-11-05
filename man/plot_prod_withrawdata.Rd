@@ -20,5 +20,5 @@ plot_prod_withrawdata(year_to_plot = 1995, fg_names = c("fg1", "fg2",
   plot_fits = FALSE)
 }
 \description{
-Arguments not described. Sorry. See \link{{plot_prod}} for similar arguments.
+Arguments not described. Sorry. See \code{\link{plot_prod}} for similar arguments.
 }
