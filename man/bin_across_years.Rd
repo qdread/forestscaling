@@ -2,10 +2,10 @@
 % Please edit documentation in R/logbin.R
 \name{bin_across_years}
 \alias{bin_across_years}
-\title{insert documentation for this function here}
+\title{Combine bins across multple censuses}
 \usage{
 bin_across_years(binlist)
 }
 \description{
-insert documentation for this function here
+Combine bins across multple censuses
 }

@@ -82,7 +82,8 @@ logbin_setedges <- function(x, y = NULL, edges) {
 
 }
 
-#' insert documentation for this function here
+#' Combine bins across multple censuses
+#' @export
 bin_across_years <- function(binlist) {
   binvals <- do.call('cbind', lapply(binlist, '[', , 'bin_value'))
   binindivs <- do.call('cbind', lapply(binlist, '[', , 'bin_count'))
@@ -95,7 +96,8 @@ bin_across_years <- function(binlist) {
              mean_n_individuals = apply(binindivs, 1, mean))
 }
 
-#' insert documentation for the fake bin function here
+#' Create bins of continuous data across one or more censuses
+#' @export
 fakebin_across_years <- function(dat_values, dat_classes, edges, mean_type = 'geometric', n_census = 5) {
   qprobs <- c(0.025, 0.25, 0.5, 0.75, 0.975)
   # add some padding just in case

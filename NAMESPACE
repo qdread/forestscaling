@@ -2,6 +2,8 @@
 
 export("%>%")
 export(bayesian_rsquared_production)
+export(bin_across_years)
+export(fakebin_across_years)
 export(fitted_predicted_values)
 export(fitted_slope_ci)
 export(insolation)

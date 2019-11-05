@@ -2,11 +2,11 @@
 % Please edit documentation in R/logbin.R
 \name{fakebin_across_years}
 \alias{fakebin_across_years}
-\title{insert documentation for the fake bin function here}
+\title{Create bins of continuous data across one or more censuses}
 \usage{
 fakebin_across_years(dat_values, dat_classes, edges,
   mean_type = "geometric", n_census = 5)
 }
 \description{
-insert documentation for the fake bin function here
+Create bins of continuous data across one or more censuses
 }
