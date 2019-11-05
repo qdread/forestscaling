@@ -11,7 +11,7 @@ logbin_setedges(x, y = NULL, edges)
 
 \item{y}{Vector of values to be binned in the y dimension (not required, defaults to \code{NULL}). Usually something like biomass production.}
 
-\item{edges}{Data frame that is output by \code{logbin()}. The bin edges from this data frame are used as pre-defined bin edges to bin \code{x} and \code {y}.}
+\item{edges}{Data frame that is output by \code{logbin()}. The bin edges from this data frame are used as pre-defined bin edges to bin \code{x} and \code{y}.}
 }
 \value{
 A data frame with columns \code{bin_midpoint} (midpoint of bins on x-axis), \code{bin_value} (height of bins), \code{bin_count} (number of individuals in bins), \code{bin_min} (lower edge of bins on x-axis), \code{bin_max} (upper edge of bins on x-axis).
