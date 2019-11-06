@@ -44,3 +44,13 @@ logseq <- function(x, y = NULL, l) {
   if (length(x) == 2) y <- x[2]
   exp(seq(log(x[1]), log(y), length.out = l))
 }
+
+#' Annualizing biomass increment (or diameter increment)
+#'
+#' census interval should be approx 5 years and desired new interval should be 1 year
+#'
+#' @export
+annual_increment <- function(meas_old, meas_new, census_interval = 5, new_interval = c(2, 3)){
+  rate <-  (meas_new / meas_old)^(1/census_interval) - 1
+  meas_old * ((1 + rate)^(new_interval[2]) - (1+rate)^(new_interval[1]))
+}
