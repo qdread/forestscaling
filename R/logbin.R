@@ -137,6 +137,7 @@ fakebin_across_years <- function(dat_values, dat_classes, edges, mean_type = 'ge
 }
 
 #' Fake binning for production by light per crown area
+#' @export
 binprod <- function(dat, bindat) {
   dat <- do.call('rbind', dat)
   dat$prod_area <- dat$production/dat$crownarea
@@ -146,6 +147,7 @@ binprod <- function(dat, bindat) {
 }
 
 #' Fake binning for PCA values
+#' @export
 binscore <- function(dat, bindat, score_column, class_column) {
   dat <- do.call('rbind', dat)
   dat <- dat[!is.na(dat$light_received) & !is.na(dat[,score_column]), ]
