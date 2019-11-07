@@ -98,7 +98,7 @@ plot_prod <- function(year_to_plot = 1995,
                       fill_names = c("#BFE046", "#267038", "#27408b", "#87Cefa", "gray87"),
                       color_names = c("#BFE046", "#267038", "#27408b", "#87Cefa", "gray"),
                       x_name = 'Diameter (cm)',
-                      y_name = expression(paste('Growth (kg yr'^-1,')')),
+                      y_name = expression(paste('Growth (kg y'^-1,')')),
                       average = 'mean',
                       dodge_width = 0.03,
                       dodge_errorbar = TRUE,
@@ -135,9 +135,10 @@ plot_prod <- function(year_to_plot = 1995,
     ggplot2::scale_x_log10()+
     ggplot2::scale_y_log10(name = y_name, limits = y_limits, breaks = y_breaks, labels = y_labels) +
     theme_no_x() +
-    ggplot2::theme(rect = element_rect(fill = "transparent"))+ # all rectangles
+    ggplot2::theme(rect = ggplot2::element_rect(fill = "transparent"))+ # all rectangles
     ggplot2::scale_color_manual(values = color_names) +
-    ggplot2::scale_fill_manual(values = fill_names) + theme_plant
+    ggplot2::scale_fill_manual(values = fill_names) +
+    theme_plant()
 
   if (plot_abline) {
     p <- p + ggplot2::geom_abline(intercept= -1.6, slope = 2, color ="gray72",linetype="dashed", size=.75)
@@ -181,7 +182,7 @@ plot_totalprod <- function(year_to_plot = 1995,
                            fill_names = c("black","#BFE046", "#267038", "#27408b", "#87Cefa", "gray87"),
                            color_names = c("black","#BFE046", "#267038", "#27408b", "#87Cefa", "gray"),
                            x_name = 'Diameter (cm)',
-                           y_name = expression(paste('Production (kg ha'^-1,' cm'^-1,' yr'^-1,')')),
+                           y_name = expression(paste('Production (kg ha'^-1,' cm'^-1,' y'^-1,')')),
                            geom_size = 4,
                            obsdat = obs_totalprod,
                            preddat = fitted_totalprod,
@@ -276,5 +277,70 @@ plot_prod_withrawdata <- function(year_to_plot = 1995,
   if (plot_fits) p <- p + ggplot2::geom_line(data = preddat, ggplot2::aes(x = dbh, y = q50, group = prod_model, linetype = prod_model), size=0.25)
 
   return(p)
+
+}
+
+#' Another variant of production plotting function
+#' @export
+plot_prod_fixed <- function(year_to_plot = 1995,
+                            fg_names = c('fg1','fg2','fg3','fg4','fg5','all'),
+                            model_fit = 1,
+                            x_limits,
+                            x_breaks = c(1, 3, 10, 30, 100,300),
+                            y_limits,
+                            y_labels,
+                            y_breaks,
+                            fill_names = c("#BFE046", "#267038", "#27408b", "#87Cefa", "ivory"),
+                            fill_names0 = c("#BFE046", "#267038", "#27408b", "#87Cefa", "gray"),
+                            x_name = 'Diameter (cm)',
+                            y_name = expression(paste('Growth (kg y'^-1,')')),
+                            average = 'mean',
+                            error_quantiles = c('ci_min', 'ci_max'),
+                            error_bar_width = 0.03,
+                            dodge_width = 0.03,
+                            dodge_errorbar = TRUE,
+                            geom_size = 4,
+                            obsdat = obs_indivprod,
+                            preddat = fitted_indivprod
+
+) {
+
+
+
+
+  pos <- if (dodge_errorbar) position_dodge(width = dodge_width) else 'identity'
+
+  obsdat <- obsdat %>%
+    dplyr::filter(fg %in% fg_names, year == year_to_plot, !is.na(mean), mean_n_individuals > 10) %>%
+    dplyr::group_by(bin_midpoint) %>%
+    dplyr::mutate(width = error_bar_width * dplyr::n()) %>%
+    dplyr::ungroup
+
+  obs_limits <- obsdat %>%
+    dplyr::group_by(fg) %>%
+    dplyr::summarize(min_obs = min(bin_midpoint), max_obs = max(bin_midpoint))
+
+  preddat <- preddat %>%
+    dplyr::left_join(obs_limits) %>%
+    dplyr::filter(prod_model %in% model_fit, fg %in% fg_names, year == year_to_plot) %>%
+    dplyr::filter_at(vars(starts_with('q')), all_vars(. > min(y_limits))) %>%
+    dplyr::filter(dbh >= min_obs & dbh <= max_obs)
+
+  ggplot2::ggplot() +
+    ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4) +
+    ggplot2::geom_line(data = preddat, ggplot2::aes(x = dbh, y = q50, group = fg, color = fg)) +
+    ggplot2::geom_line(data = preddat[preddat$fg == "fg5",], ggplot2::aes(x = dbh, y = q50), color = "gray")+ # white circles get gray line
+    ggplot2::geom_ribbon(data = preddat[preddat$fg == "fg5",],
+                         ggplot2::aes(x = dbh, ymin = q025, ymax = q975),
+                         fill = "gray", alpha = 0.4) +
+    ggplot2::geom_point(data = obsdat, aes_string(x = 'bin_midpoint', y = average, group = 'fg', fill = 'fg'),
+                        size = geom_size,color="black",shape=21, position = pos) +
+    ggplot2::scale_x_log10(name = x_name, limits = x_limits, breaks = x_breaks) +
+    ggplot2::scale_y_log10(name = y_name, limits = y_limits, breaks = y_breaks, labels = y_labels) +
+    ggplot2::theme(axis.title.x = element_blank(),
+                   axis.ticks.x = element_blank(),
+                   rect = ggplot2::element_rect(fill = "transparent"))+ # all rectangles
+    ggplot2::scale_color_manual(values = fill_names0) +
+    ggplot2::scale_fill_manual(values = fill_names) + theme_plant()
 
 }

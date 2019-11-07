@@ -9,9 +9,9 @@ plot_prod(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3", "fg4",
   100, 300), y_limits, y_labels, y_breaks, fill_names = c("#BFE046",
   "#267038", "#27408b", "#87Cefa", "gray87"), color_names = c("#BFE046",
   "#267038", "#27408b", "#87Cefa", "gray"), x_name = "Diameter (cm)",
-  y_name = expression(paste("Growth (kg yr"^-1, ")")),
-  average = "mean", dodge_width = 0.03, dodge_errorbar = TRUE,
-  geom_size = 4, obsdat = obs_indivprod, preddat = fitted_indivprod,
+  y_name = expression(paste("Growth (kg y"^-1, ")")), average = "mean",
+  dodge_width = 0.03, dodge_errorbar = TRUE, geom_size = 4,
+  obsdat = obs_indivprod, preddat = fitted_indivprod,
   plot_abline = TRUE)
 }
 \arguments{

@@ -11,7 +11,7 @@ plot_totalprod(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3",
   1000), y_labels, fill_names = c("black", "#BFE046", "#267038",
   "#27408b", "#87Cefa", "gray87"), color_names = c("black", "#BFE046",
   "#267038", "#27408b", "#87Cefa", "gray"), x_name = "Diameter (cm)",
-  y_name = expression(paste("Production (kg ha"^-1, " cm"^-1, " yr"^-1,
+  y_name = expression(paste("Production (kg ha"^-1, " cm"^-1, " y"^-1,
   ")")), geom_size = 4, obsdat = obs_totalprod,
   preddat = fitted_totalprod, plot_abline = TRUE)
 }
