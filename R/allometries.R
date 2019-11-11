@@ -48,3 +48,10 @@ taper_correct_dbh <- function(dat) {
   )
   return(data.frame(dbh_corr = dbh_corr))
 }
+
+#' Generalized Michaelis-Menten function
+#'
+#' @export
+gMM <- function(x, a, b, k) {
+  (a * x ^ b) / (k + x ^ b)
+}
