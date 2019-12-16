@@ -114,7 +114,7 @@ plot_prod <- function(year_to_plot = 1995,
     dplyr::filter(fg %in% fg_names, year == year_to_plot, !is.na(mean), mean_n_individuals > 10) %>%
     dplyr::group_by(bin_midpoint) %>%
     dplyr::mutate(width = error_bar_width * dplyr::n()) %>%
-    dplyr::ungroup
+    dplyr::ungroup()
 
   obs_limits <- obsdat %>%
     dplyr::group_by(fg) %>%
@@ -314,7 +314,7 @@ plot_prod_fixed <- function(year_to_plot = 1995,
     dplyr::filter(fg %in% fg_names, year == year_to_plot, !is.na(mean), mean_n_individuals > 10) %>%
     dplyr::group_by(bin_midpoint) %>%
     dplyr::mutate(width = error_bar_width * dplyr::n()) %>%
-    dplyr::ungroup
+    dplyr::ungroup()
 
   obs_limits <- obsdat %>%
     dplyr::group_by(fg) %>%

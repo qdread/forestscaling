@@ -6,27 +6,6 @@
 #' @export
 apply.eqn1 <- function(d,h,b1) {d/(exp(-b1*(h-1.3)))}
 
-#' Estimate total tree height (m) from diameter (cm)
-#'
-#' with uncorrected (notaper.H) or taper-corrected (taper.H) allometries parameterized from
-#' data from the BCI plot. The function is the weibull function as described in
-#' Feldpausch et al. 2012
-#' @export
-notaper.H <- function(dbh) {43.1427*(1-
-                                       exp(-0.04003*dbh^0.82585))
-}
-
-#' Estimate total tree height (m) from diameter (cm)
-#'
-#' with uncorrected (notaper.H) or taper-corrected (taper.H) allometries parameterized from
-#' data from the BCI plot. The function is the weibull function as described in
-#' Feldpausch et al. 2012
-#' @export
-taper.H <- function(dbh) {43.4375*(1-
-                                     exp(-0.04469*dbh^0.78339))
-}
-
-
 #' Estimate aboveground biomass
 #'
 #' from wood specific gravity (wsg), tree diameter in centimeters (dbh),
@@ -54,4 +33,19 @@ taper_correct_dbh <- function(dat) {
 #' @export
 gMM <- function(x, a, b, k) {
   (a * x ^ b) / (k + x ^ b)
+}
+
+#' Correction factor to remove bias from log-transformation
+#'
+#' Cite: Sprugel 1983 (Ecology).
+#'
+#' @param log_y Log-transformed observed y-values
+#' @param log_y_pred Log-transformed fitted y-values
+#' @param n_pars Number of parameters in regression (used to calculate degrees of freedom)
+#' @param base Base of the log transformation. Default to natural logarithm.
+#'
+#' @export
+log_correction_factor <- function(log_y, log_y_pred, n_pars, base = exp(1)) {
+  std_err_est <- (sum((log_y - log_y_pred)^2) / (length(log_y) - n_pars)) ^ 0.5
+  base ^ ((std_err_est^2)/2)
 }
