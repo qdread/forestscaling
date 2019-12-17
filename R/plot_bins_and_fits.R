@@ -132,7 +132,7 @@ plot_prod <- function(year_to_plot = 1995,
     ggplot2::geom_line(data = preddat[preddat$fg == "fg5",], ggplot2::aes(x = dbh, y = q50), color = "gray")+ # white circles get gray line
     ggplot2::geom_point(data = obsdat, ggplot2::aes_string(x = 'bin_midpoint', y = average, group = 'fg', fill = 'fg'),
                size = geom_size,color="black",shape=21, position = pos) +
-    ggplot2::scale_x_log10()+
+    ggplot2::scale_x_log10(name = x_name, limits = x_limits, breaks = x_breaks)+
     ggplot2::scale_y_log10(name = y_name, limits = y_limits, breaks = y_breaks, labels = y_labels) +
     theme_no_x() +
     ggplot2::theme(rect = ggplot2::element_rect(fill = "transparent"))+ # all rectangles
