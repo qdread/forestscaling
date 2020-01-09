@@ -15,6 +15,9 @@
 #' @param geom_size Size of points to plot. Default is 4.
 #' @param obsdat Name of R object with observed density values.
 #' @param preddat Name of R object with fitted density values.
+#' @param plot_abline Whether to include reference line, default TRUE
+#' @param abline_slope Slope of the optional reference line, default -2
+#' @param abline_intercept Intercept of the optional reference line, default 4
 #'
 #'
 #' @export
@@ -32,7 +35,10 @@ plot_dens <- function(year_to_plot = 1995,
                       y_name = expression(paste('Density (n ha'^-1,'cm'^-1,')')),
                       geom_size = 4,
                       obsdat = obs_dens,
-                      preddat = pred_dens
+                      preddat = pred_dens,
+                      plot_abline = TRUE,
+                      abline_slope = -2,
+                      abline_intercept = 4
 ) {
 
   obsdat <- obsdat %>%
@@ -51,9 +57,14 @@ plot_dens <- function(year_to_plot = 1995,
     dplyr::filter_at(dplyr::vars(dplyr::starts_with('q')), dplyr::all_vars(. > min(y_limits))) %>%
     dplyr::filter(dbh >= min_obs & dbh <= max_obs)
 
-  ggplot2::ggplot() +
-    ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4) +
-    ggplot2::geom_abline(intercept=4, slope = -2, color ="gray72",linetype="dashed", size=.75)+
+  p <- ggplot2::ggplot() +
+    ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4)
+
+  if (plot_abline) {
+    p <- p + ggplot2::geom_abline(intercept = abline_intercept, slope = abline_slope, color ="gray72",linetype="dashed", size=.75)
+  }
+
+  p +
     ggplot2::geom_line(data = preddat, ggplot2::aes(x = dbh, y = q50, group = fg, color = fg)) +
     ggplot2::geom_line(data = preddat[preddat$fg == "fg5",], ggplot2::aes(x = dbh, y = q50), color = "gray")+ # white circles get gray line
     ggplot2::geom_point(data = obsdat, ggplot2::aes(x = bin_midpoint, y = bin_value, group = fg, fill=fg), size = geom_size, shape=21,color="black") +
@@ -85,6 +96,8 @@ plot_dens <- function(year_to_plot = 1995,
 #' @param obsdat Name of R object with observed production values.
 #' @param preddat Name of R object with fitted production values.
 #' @param plot_abline Whether to include reference line, default TRUE
+#' @param abline_slope Slope of the optional reference line, default 2
+#' @param abline_intercept Intercept of the optional reference line, default -1.6
 #'
 #' @export
 plot_prod <- function(year_to_plot = 1995,
@@ -100,12 +113,17 @@ plot_prod <- function(year_to_plot = 1995,
                       x_name = 'Diameter (cm)',
                       y_name = expression(paste('Growth (kg y'^-1,')')),
                       average = 'mean',
+                      plot_errorbar = FALSE,
+                      error_min = 'ci_min',
+                      error_max = 'ci_max',
                       dodge_width = 0.03,
                       dodge_errorbar = TRUE,
                       geom_size = 4,
                       obsdat = obs_indivprod,
                       preddat = fitted_indivprod,
-                      plot_abline = TRUE
+                      plot_abline = TRUE,
+                      abline_slope = 2,
+                      abline_intercept = -1.6
 ) {
 
   pos <- if (dodge_errorbar) ggplot2::position_dodge(width = dodge_width) else 'identity'
@@ -128,7 +146,13 @@ plot_prod <- function(year_to_plot = 1995,
 
   p <- ggplot2::ggplot() +
     ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4) +
-    ggplot2::geom_line(data = preddat, ggplot2::aes(x = dbh, y = q50, group = fg, color = fg)) +
+    ggplot2::geom_line(data = preddat, ggplot2::aes(x = dbh, y = q50, group = fg, color = fg))
+
+  if (plot_errorbar) {
+    p <- p + ggplot2::geom_errorbar(data = obsdat, ggplot2::aes_string(x = 'bin_midpoint', ymin = error_min, ymax = error_max, group = 'fg', color = 'fg', width = 'width'), position = pos)
+  }
+
+  p <- p +
     ggplot2::geom_line(data = preddat[preddat$fg == "fg5",], ggplot2::aes(x = dbh, y = q50), color = "gray")+ # white circles get gray line
     ggplot2::geom_point(data = obsdat, ggplot2::aes_string(x = 'bin_midpoint', y = average, group = 'fg', fill = 'fg'),
                size = geom_size,color="black",shape=21, position = pos) +
@@ -141,7 +165,7 @@ plot_prod <- function(year_to_plot = 1995,
     theme_plant()
 
   if (plot_abline) {
-    p <- p + ggplot2::geom_abline(intercept= -1.6, slope = 2, color ="gray72",linetype="dashed", size=.75)
+    p <- p + ggplot2::geom_abline(intercept = abline_intercept, slope = abline_slope, color ="gray72",linetype="dashed", size=.75)
   }
   p
 }
@@ -168,6 +192,8 @@ plot_prod <- function(year_to_plot = 1995,
 #' @param obs_dens Name of R object with observed density values.
 #' @param pred_dens Name of R object with fitted density values.
 #' @param plot_abline Whether to include reference line, default TRUE
+#' @param abline_slope Slope of the optional reference line, default 0
+#' @param abline_intercept Intercept of the optional reference line, default 2
 #'
 #' @export
 plot_totalprod <- function(year_to_plot = 1995,
@@ -186,7 +212,9 @@ plot_totalprod <- function(year_to_plot = 1995,
                            geom_size = 4,
                            obsdat = obs_totalprod,
                            preddat = fitted_totalprod,
-                           plot_abline = TRUE
+                           plot_abline = TRUE,
+                           abline_slope = 0,
+                           abline_intercept = 2
 ) {
 
   obsdat <- obsdat %>%
@@ -213,7 +241,7 @@ plot_totalprod <- function(year_to_plot = 1995,
     ggplot2::scale_fill_manual(values = fill_names) +
     theme_plant() + theme(aspect.ratio = 1)
 
-  if (plot_abline) p <- p + ggplot2::geom_abline(intercept= 2, slope = 0, color ="gray72",linetype="dashed", size=.75)
+  if (plot_abline) p <- p + ggplot2::geom_abline(intercept = abline_intercept, slope = abline_slope, color ="gray72",linetype="dashed", size=.75)
   p
 
 }
@@ -240,6 +268,8 @@ plot_prod_withrawdata <- function(year_to_plot = 1995,
                                   obsdat = raw_prod,
                                   preddat = fitted_indivprod,
                                   plot_abline = TRUE,
+                                  abline_slope = 2,
+                                  abline_intercept = -2.1,
                                   plot_fits = FALSE
 ) {
 
@@ -273,7 +303,7 @@ plot_prod_withrawdata <- function(year_to_plot = 1995,
                    strip.text = ggplot2::element_text(size=12),
                    legend.key = ggplot2::element_rect(fill = NA))
 
-  if (plot_abline) p <- p + ggplot2::geom_abline(slope = 2, intercept = -2.1, linetype = "dashed") + ggplot2::guides(linetype = 'none')
+  if (plot_abline) p <- p + ggplot2::geom_abline(slope = abline_slope, intercept = abline_intercept, linetype = "dashed") + ggplot2::guides(linetype = 'none')
   if (plot_fits) p <- p + ggplot2::geom_line(data = preddat, ggplot2::aes(x = dbh, y = q50, group = prod_model, linetype = prod_model), size=0.25)
 
   return(p)

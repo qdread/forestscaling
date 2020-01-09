@@ -11,7 +11,8 @@ plot_dens(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3", "fg4",
   color_names = c("black", "#BFE046", "#267038", "#27408b", "#87Cefa",
   "gray"), x_name = "Diameter (cm)",
   y_name = expression(paste("Density (n ha"^-1, "cm"^-1, ")")),
-  geom_size = 4, obsdat = obs_dens, preddat = pred_dens)
+  geom_size = 4, obsdat = obs_dens, preddat = pred_dens,
+  plot_abline = TRUE, abline_slope = -2, abline_intercept = 4)
 }
 \arguments{
 \item{year_to_plot}{Default 1995, currently no other years have model fits.}
@@ -43,6 +44,12 @@ plot_dens(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3", "fg4",
 \item{obsdat}{Name of R object with observed density values.}
 
 \item{preddat}{Name of R object with fitted density values.}
+
+\item{plot_abline}{Whether to include reference line, default TRUE}
+
+\item{abline_slope}{Slope of the optional reference line, default -2}
+
+\item{abline_intercept}{Intercept of the optional reference line, default 4}
 }
 \description{
 Plot single model fit with multiple functional groups for density

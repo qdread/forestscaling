@@ -10,9 +10,10 @@ plot_prod(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3", "fg4",
   "#267038", "#27408b", "#87Cefa", "gray87"), color_names = c("#BFE046",
   "#267038", "#27408b", "#87Cefa", "gray"), x_name = "Diameter (cm)",
   y_name = expression(paste("Growth (kg y"^-1, ")")), average = "mean",
+  plot_errorbar = FALSE, error_min = "ci_min", error_max = "ci_max",
   dodge_width = 0.03, dodge_errorbar = TRUE, geom_size = 4,
   obsdat = obs_indivprod, preddat = fitted_indivprod,
-  plot_abline = TRUE)
+  plot_abline = TRUE, abline_slope = 2, abline_intercept = -1.6)
 }
 \arguments{
 \item{year_to_plot}{Default 1995, currently no other years have model fits.}
@@ -48,6 +49,10 @@ plot_prod(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3", "fg4",
 \item{preddat}{Name of R object with fitted production values.}
 
 \item{plot_abline}{Whether to include reference line, default TRUE}
+
+\item{abline_slope}{Slope of the optional reference line, default 2}
+
+\item{abline_intercept}{Intercept of the optional reference line, default -1.6}
 }
 \description{
 Plot single model fit with multiple functional groups for individual production

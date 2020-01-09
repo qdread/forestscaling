@@ -13,7 +13,8 @@ plot_totalprod(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3",
   "#267038", "#27408b", "#87Cefa", "gray"), x_name = "Diameter (cm)",
   y_name = expression(paste("Production (kg ha"^-1, " cm"^-1, " y"^-1,
   ")")), geom_size = 4, obsdat = obs_totalprod,
-  preddat = fitted_totalprod, plot_abline = TRUE)
+  preddat = fitted_totalprod, plot_abline = TRUE, abline_slope = 0,
+  abline_intercept = 2)
 }
 \arguments{
 \item{year_to_plot}{Default 1995, currently no other years have model fits.}
@@ -45,6 +46,10 @@ plot_totalprod(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3",
 \item{geom_size}{Size of points to plot. Default is 4.}
 
 \item{plot_abline}{Whether to include reference line, default TRUE}
+
+\item{abline_slope}{Slope of the optional reference line, default 0}
+
+\item{abline_intercept}{Intercept of the optional reference line, default 2}
 
 \item{obs_dens}{Name of R object with observed density values.}
 

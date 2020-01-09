@@ -17,7 +17,7 @@ plot_prod_withrawdata(year_to_plot = 1995, fg_names = c("fg1", "fg2",
   1)(50), trans = "log", name = "Individuals", breaks = c(1, 10, 100, 1000,
   10000), labels = c(1, 10, 100, 1000, 10000), limits = c(1, 10000)),
   obsdat = raw_prod, preddat = fitted_indivprod, plot_abline = TRUE,
-  plot_fits = FALSE)
+  abline_slope = 2, abline_intercept = -2.1, plot_fits = FALSE)
 }
 \description{
 Arguments not described. Sorry. See \code{\link{plot_prod}} for similar arguments.
