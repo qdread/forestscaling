@@ -116,6 +116,8 @@ plot_prod <- function(year_to_plot = 1995,
                       plot_errorbar = FALSE,
                       error_min = 'ci_min',
                       error_max = 'ci_max',
+                      error_bar_width = 0.1,
+                      error_bar_thickness = 0.5,
                       dodge_width = 0.03,
                       dodge_errorbar = TRUE,
                       geom_size = 4,
@@ -149,7 +151,7 @@ plot_prod <- function(year_to_plot = 1995,
     ggplot2::geom_line(data = preddat, ggplot2::aes(x = dbh, y = q50, group = fg, color = fg))
 
   if (plot_errorbar) {
-    p <- p + ggplot2::geom_errorbar(data = obsdat, ggplot2::aes_string(x = 'bin_midpoint', ymin = error_min, ymax = error_max, group = 'fg', color = 'fg', width = 'width'), position = pos)
+    p <- p + ggplot2::geom_errorbar(data = obsdat, ggplot2::aes_string(x = 'bin_midpoint', ymin = error_min, ymax = error_max, group = 'fg', color = 'fg', width = 'width'), position = pos, size = error_bar_thickness)
   }
 
   p <- p +

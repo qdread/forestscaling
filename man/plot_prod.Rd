@@ -11,6 +11,7 @@ plot_prod(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3", "fg4",
   "#267038", "#27408b", "#87Cefa", "gray"), x_name = "Diameter (cm)",
   y_name = expression(paste("Growth (kg y"^-1, ")")), average = "mean",
   plot_errorbar = FALSE, error_min = "ci_min", error_max = "ci_max",
+  error_bar_width = 0.1, error_bar_thickness = 0.5,
   dodge_width = 0.03, dodge_errorbar = TRUE, geom_size = 4,
   obsdat = obs_indivprod, preddat = fitted_indivprod,
   plot_abline = TRUE, abline_slope = 2, abline_intercept = -1.6)
