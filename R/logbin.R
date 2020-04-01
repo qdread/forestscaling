@@ -98,7 +98,7 @@ bin_across_years <- function(binlist) {
 
 #' Create bins of continuous data across one or more censuses
 #' @export
-fakebin_across_years <- function(dat_values, dat_classes, edges, mean_type = 'geometric', n_census = 5) {
+cloudbin_across_years <- function(dat_values, dat_classes, edges, mean_type = 'geometric', n_census = 5) {
   qprobs <- c(0.025, 0.25, 0.5, 0.75, 0.975)
   # add some padding just in case
   mins <- edges$bin_min
@@ -136,21 +136,21 @@ fakebin_across_years <- function(dat_values, dat_classes, edges, mean_type = 'ge
              binstats)
 }
 
-#' Fake binning for production by light per crown area
+#' Continuous-data (point cloud) binning for production by light per crown area
 #' @export
 binprod <- function(dat, bindat) {
   dat <- do.call('rbind', dat)
   dat$prod_area <- dat$production/dat$crownarea
   dat$light_area <- dat$light_received/dat$crownarea
   dat <- subset(dat, !is.na(light_received))
-  with(dat, fakebin_across_years(dat_values = prod_area, dat_classes = light_area, edges = bindat, n_census = 2))
+  with(dat, cloudbin_across_years(dat_values = prod_area, dat_classes = light_area, edges = bindat, n_census = 2))
 }
 
-#' Fake binning for PCA values
+#' Continuous-data (point cloud) binning for PCA values
 #' @export
 binscore <- function(dat, bindat, score_column, class_column) {
   dat <- do.call('rbind', dat)
   dat <- dat[!is.na(dat$light_received) & !is.na(dat[,score_column]), ]
   dat$light_area <- dat$light_received/dat$crownarea
-  with(dat, fakebin_across_years(dat_values = dat[,score_column], dat_classes = dat[,class_column], edges = bindat, mean = 'arithmetic', n_census = 2))
+  with(dat, cloudbin_across_years(dat_values = dat[,score_column], dat_classes = dat[,class_column], edges = bindat, mean = 'arithmetic', n_census = 2))
 }

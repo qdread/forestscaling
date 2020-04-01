@@ -2,10 +2,10 @@
 % Please edit documentation in R/logbin.R
 \name{binscore}
 \alias{binscore}
-\title{Fake binning for PCA values}
+\title{Continuous-data (point cloud) binning for PCA values}
 \usage{
 binscore(dat, bindat, score_column, class_column)
 }
 \description{
-Fake binning for PCA values
+Continuous-data (point cloud) binning for PCA values
 }

@@ -2,10 +2,10 @@
 % Please edit documentation in R/logbin.R
 \name{binprod}
 \alias{binprod}
-\title{Fake binning for production by light per crown area}
+\title{Continuous-data (point cloud) binning for production by light per crown area}
 \usage{
 binprod(dat, bindat)
 }
 \description{
-Fake binning for production by light per crown area
+Continuous-data (point cloud) binning for production by light per crown area
 }
