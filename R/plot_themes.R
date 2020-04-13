@@ -25,8 +25,8 @@ theme_plant <- function() {
 
 #' @rdname theme_plant
 #' @export
-theme_plant_small <- function() {
-  ggplot2::theme(panel.grid = ggplot2::element_blank(),
+theme_plant_small <- function(legend = FALSE) {
+  th <- ggplot2::theme(panel.grid = ggplot2::element_blank(),
                  aspect.ratio = .75,
                  axis.text = ggplot2::element_text(size = 15, color = "black"),
                  axis.ticks.length=ggplot2::unit(0.2,"cm"),
@@ -41,6 +41,12 @@ theme_plant_small <- function() {
                  legend.position = "none",
                  rect = ggplot2::element_rect(fill = "transparent"),
                  text = ggplot2::element_text(family = 'Helvetica'))
+  if (legend) {
+    th <- th + ggplot2::theme(legend.position = "right",
+                              legend.text = ggplot2::element_text(size = 14),
+                              legend.key = ggplot2::element_blank())
+  }
+  return(th)
 }
 
 #' @rdname theme_plant
@@ -58,15 +64,20 @@ theme_facet <- function() {
 
 #' @rdname theme_plant
 #' @export
-theme_facet2 <- function() {
+theme_facet2 <- function(text_size = 15, show_strip_text = FALSE) {
+  if (show_strip_text) {
+    strip_text <- ggplot2::element_text(size = text_size)
+  } else {
+    strip_text <- ggplot2::element_blank()
+  }
   ggplot2::theme(strip.background = ggplot2::element_rect(fill=NA),
                  panel.border = ggplot2::element_rect(color = "black", fill=NA,  size=.75),
                  legend.position = 'none',
                  panel.background = ggplot2::element_blank(),
-                 strip.text.x = ggplot2::element_blank(),
-                 axis.text = ggplot2::element_text(size = 15, color = "black"),
+                 strip.text.x = strip_text,
+                 axis.text = ggplot2::element_text(size = text_size, color = "black"),
                  axis.ticks.length=ggplot2::unit(0.2,"cm"),
-                 axis.title = ggplot2::element_text(size = 15))
+                 axis.title = ggplot2::element_text(size = text_size))
 }
 
 #' @rdname theme_plant

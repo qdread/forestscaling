@@ -11,11 +11,11 @@
 \usage{
 theme_plant()
 
-theme_plant_small()
+theme_plant_small(legend = FALSE)
 
 theme_facet()
 
-theme_facet2()
+theme_facet2(text_size = 15, show_strip_text = FALSE)
 
 theme_no_y()
 

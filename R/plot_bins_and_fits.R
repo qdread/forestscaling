@@ -306,7 +306,7 @@ plot_prod_withrawdata <- function(year_to_plot = 1995,
                    legend.key = ggplot2::element_rect(fill = NA))
 
   if (plot_abline) p <- p + ggplot2::geom_abline(slope = abline_slope, intercept = abline_intercept, linetype = "dashed") + ggplot2::guides(linetype = 'none')
-  if (plot_fits) p <- p + ggplot2::geom_line(data = preddat, ggplot2::aes(x = dbh, y = q50, group = prod_model, linetype = prod_model), size=0.25)
+  if (plot_fits[1]) p <- p + ggplot2::geom_line(data = preddat %>% filter(prod_model %in% plot_fits), ggplot2::aes(x = dbh, y = q50, group = prod_model, linetype = prod_model), size=0.25)
 
   return(p)
 
