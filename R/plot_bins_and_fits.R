@@ -43,7 +43,8 @@ plot_dens <- function(year_to_plot = 1995,
 
   obsdat <- obsdat %>%
     dplyr::filter(fg %in% fg_names, year == year_to_plot, bin_count > 10) %>%
-    dplyr::filter(bin_value > 0)
+    dplyr::filter(bin_value > 0) %>%
+    dplyr::arrange(dplyr::desc(fg))
 
   # Get minimum and maximum observed bin value for each group to be plotted
   # Delete points on the predicted line that are outside of this range
@@ -55,7 +56,8 @@ plot_dens <- function(year_to_plot = 1995,
     dplyr::left_join(obs_limits) %>%
     dplyr::filter(dens_model %in% model_fit, fg %in% fg_names, year == year_to_plot) %>%
     dplyr::filter_at(dplyr::vars(dplyr::starts_with('q')), dplyr::all_vars(. > min(y_limits))) %>%
-    dplyr::filter(dbh >= min_obs & dbh <= max_obs)
+    dplyr::filter(dbh >= min_obs & dbh <= max_obs) %>%
+    dplyr::arrange(dplyr::desc(fg))
 
   p <- ggplot2::ggplot() +
     ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4)
@@ -134,7 +136,8 @@ plot_prod <- function(year_to_plot = 1995,
     dplyr::filter(fg %in% fg_names, year == year_to_plot, !is.na(mean), mean_n_individuals > 10) %>%
     dplyr::group_by(bin_midpoint) %>%
     dplyr::mutate(width = error_bar_width * dplyr::n()) %>%
-    dplyr::ungroup()
+    dplyr::ungroup() %>%
+    dplyr::arrange(dplyr::desc(fg))
 
   obs_limits <- obsdat %>%
     dplyr::group_by(fg) %>%
@@ -144,7 +147,8 @@ plot_prod <- function(year_to_plot = 1995,
     dplyr::left_join(obs_limits) %>%
     dplyr::filter(prod_model %in% model_fit, fg %in% fg_names, year == year_to_plot) %>%
     dplyr::filter_at(dplyr::vars(dplyr::starts_with('q')), dplyr::all_vars(. > min(y_limits))) %>%
-    dplyr::filter(dbh >= min_obs & dbh <= max_obs)
+    dplyr::filter(dbh >= min_obs & dbh <= max_obs) %>%
+    dplyr::arrange(dplyr::desc(fg))
 
   p <- ggplot2::ggplot() +
     ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4) +
@@ -221,7 +225,8 @@ plot_totalprod <- function(year_to_plot = 1995,
 
   obsdat <- obsdat %>%
     dplyr::filter(fg %in% fg_names, year == year_to_plot, bin_count > 10) %>%
-    dplyr::filter(bin_value > 0)
+    dplyr::filter(bin_value > 0) %>%
+    dplyr::arrange(dplyr::desc(fg))
 
   obs_limits <- obsdat %>%
     dplyr::group_by(fg) %>%
@@ -231,7 +236,8 @@ plot_totalprod <- function(year_to_plot = 1995,
     dplyr::left_join(obs_limits) %>%
     dplyr::filter(dens_model %in% model_fit_density, prod_model %in% model_fit_production, fg %in% fg_names, year == year_to_plot) %>%
     dplyr::filter_at(dplyr::vars(dplyr::starts_with('q')), dplyr::all_vars(. > min(y_limits))) %>%
-    dplyr::filter(dbh >= min_obs & dbh <= max_obs)
+    dplyr::filter(dbh >= min_obs & dbh <= max_obs) %>%
+    dplyr::arrange(dplyr::desc(fg))
 
   p <- ggplot2::ggplot() +
     ggplot2::geom_ribbon(data = preddat, aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4) +
@@ -346,7 +352,8 @@ plot_prod_fixed <- function(year_to_plot = 1995,
     dplyr::filter(fg %in% fg_names, year == year_to_plot, !is.na(mean), mean_n_individuals > 10) %>%
     dplyr::group_by(bin_midpoint) %>%
     dplyr::mutate(width = error_bar_width * dplyr::n()) %>%
-    dplyr::ungroup()
+    dplyr::ungroup() %>%
+    dplyr::arrange(dplyr::desc(fg))
 
   obs_limits <- obsdat %>%
     dplyr::group_by(fg) %>%
@@ -356,7 +363,8 @@ plot_prod_fixed <- function(year_to_plot = 1995,
     dplyr::left_join(obs_limits) %>%
     dplyr::filter(prod_model %in% model_fit, fg %in% fg_names, year == year_to_plot) %>%
     dplyr::filter_at(vars(starts_with('q')), all_vars(. > min(y_limits))) %>%
-    dplyr::filter(dbh >= min_obs & dbh <= max_obs)
+    dplyr::filter(dbh >= min_obs & dbh <= max_obs) %>%
+    dplyr::arrange(dplyr::desc(fg))
 
   ggplot2::ggplot() +
     ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4) +
