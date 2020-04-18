@@ -60,7 +60,7 @@ plot_dens <- function(year_to_plot = 1995,
     dplyr::arrange(dplyr::desc(fg))
 
   p <- ggplot2::ggplot() +
-    ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4)
+    ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4, show.legend = FALSE)
 
   if (plot_abline) {
     p <- p + ggplot2::geom_abline(intercept = abline_intercept, slope = abline_slope, color ="gray72",linetype="dashed", size=.75)
@@ -151,7 +151,7 @@ plot_prod <- function(year_to_plot = 1995,
     dplyr::arrange(dplyr::desc(fg))
 
   p <- ggplot2::ggplot() +
-    ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4) +
+    ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4, show.legend = FALSE) +
     ggplot2::geom_line(data = preddat, ggplot2::aes(x = dbh, y = q50, group = fg, color = fg))
 
   if (plot_errorbar) {
@@ -240,7 +240,7 @@ plot_totalprod <- function(year_to_plot = 1995,
     dplyr::arrange(dplyr::desc(fg))
 
   p <- ggplot2::ggplot() +
-    ggplot2::geom_ribbon(data = preddat, aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4) +
+    ggplot2::geom_ribbon(data = preddat, aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4, show.legend = FALSE) +
     ggplot2::geom_line(data = preddat, aes(x = dbh, y = q50, group = fg, color = fg)) +
     ggplot2::geom_point(data = obsdat, aes(x = bin_midpoint, y = bin_value,group = fg, fill=fg), size = geom_size, color = "black",shape=21) +
     ggplot2::scale_x_log10(name = x_name, limits = x_limits, breaks = x_breaks) +
@@ -367,7 +367,7 @@ plot_prod_fixed <- function(year_to_plot = 1995,
     dplyr::arrange(dplyr::desc(fg))
 
   ggplot2::ggplot() +
-    ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4) +
+    ggplot2::geom_ribbon(data = preddat, ggplot2::aes(x = dbh, ymin = q025, ymax = q975, group = fg, fill = fg), alpha = 0.4, show.legend = FALSE) +
     ggplot2::geom_line(data = preddat, ggplot2::aes(x = dbh, y = q50, group = fg, color = fg)) +
     ggplot2::geom_line(data = preddat[preddat$fg == "fg5",], ggplot2::aes(x = dbh, y = q50), color = "gray")+ # white circles get gray line
     ggplot2::geom_ribbon(data = preddat[preddat$fg == "fg5",],
