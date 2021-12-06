@@ -4,17 +4,27 @@
 \alias{plot_totalprod}
 \title{Plot single model fit with multiple functional groups for total production}
 \usage{
-plot_totalprod(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3",
-  "fg4", "fg5", "all"), model_fit_density = 1,
-  model_fit_production = 1, x_limits, x_breaks = c(1, 3, 10, 30, 100,
-  300), y_limits = c(0.03, 100), y_breaks = c(0.01, 0.1, 1, 10, 100,
-  1000), y_labels, fill_names = c("black", "#BFE046", "#267038",
-  "#27408b", "#87Cefa", "gray87"), color_names = c("black", "#BFE046",
-  "#267038", "#27408b", "#87Cefa", "gray"), x_name = "Diameter (cm)",
-  y_name = expression(paste("Production (kg ha"^-1, " cm"^-1, " y"^-1,
-  ")")), geom_size = 4, obsdat = obs_totalprod,
-  preddat = fitted_totalprod, plot_abline = TRUE, abline_slope = 0,
-  abline_intercept = 2)
+plot_totalprod(
+  year_to_plot = 1995,
+  fg_names = c("fg1", "fg2", "fg3", "fg4", "fg5", "all"),
+  model_fit_density = 1,
+  model_fit_production = 1,
+  x_limits,
+  x_breaks = c(1, 3, 10, 30, 100, 300),
+  y_limits = c(0.03, 100),
+  y_breaks = c(0.01, 0.1, 1, 10, 100, 1000),
+  y_labels,
+  fill_names = c("black", "#BFE046", "#267038", "#27408b", "#87Cefa", "gray87"),
+  color_names = c("black", "#BFE046", "#267038", "#27408b", "#87Cefa", "gray"),
+  x_name = "Diameter (cm)",
+  y_name = expression(paste("Production (kg ha"^-1, " cm"^-1, " y"^-1, ")")),
+  geom_size = 4,
+  obsdat = obs_totalprod,
+  preddat = fitted_totalprod,
+  plot_abline = TRUE,
+  abline_slope = 0,
+  abline_intercept = 2
+)
 }
 \arguments{
 \item{year_to_plot}{Default 1995, currently no other years have model fits.}

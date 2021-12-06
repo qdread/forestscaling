@@ -4,9 +4,19 @@
 \alias{fitted_predicted_values}
 \title{Get fitted values and credible/prediction intervals from Stan fit}
 \usage{
-fitted_predicted_values(fit, variable, dbh_pred, dens_form = NA,
-  prod_form = NA, x_min = NULL, n_indiv = 1, ll = 1.1, ul = 316,
-  pars_to_get, scaling_var = "dbh")
+fitted_predicted_values(
+  fit,
+  variable,
+  dbh_pred,
+  dens_form = NA,
+  prod_form = NA,
+  x_min = NULL,
+  n_indiv = 1,
+  ll = 1.1,
+  ul = 316,
+  pars_to_get,
+  scaling_var = "dbh"
+)
 }
 \description{
 Works for density, for production, or for total production. Fit should be a list. If total production, it's \code{list(density, production)}

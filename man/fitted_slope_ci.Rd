@@ -4,9 +4,19 @@
 \alias{fitted_slope_ci}
 \title{Get the fitted log slope values at many points from Stan fit}
 \usage{
-fitted_slope_ci(fit, variable, dbh_pred, dens_form, prod_form,
-  x_min = NULL, n_indiv = 1, ll = 1.1, ul = 316, pars_to_get,
-  scaling_var = "dbh")
+fitted_slope_ci(
+  fit,
+  variable,
+  dbh_pred,
+  dens_form,
+  prod_form,
+  x_min = NULL,
+  n_indiv = 1,
+  ll = 1.1,
+  ul = 316,
+  pars_to_get,
+  scaling_var = "dbh"
+)
 }
 \description{
 Get the fitted log slope values at many points from Stan fit

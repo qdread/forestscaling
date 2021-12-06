@@ -4,17 +4,34 @@
 \alias{plot_prod}
 \title{Plot single model fit with multiple functional groups for individual production}
 \usage{
-plot_prod(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3", "fg4",
-  "fg5", "all"), model_fit = 1, x_limits, x_breaks = c(1, 3, 10, 30,
-  100, 300), y_limits, y_labels, y_breaks, fill_names = c("#BFE046",
-  "#267038", "#27408b", "#87Cefa", "gray87"), color_names = c("#BFE046",
-  "#267038", "#27408b", "#87Cefa", "gray"), x_name = "Diameter (cm)",
-  y_name = expression(paste("Growth (kg y"^-1, ")")), average = "mean",
-  plot_errorbar = FALSE, error_min = "ci_min", error_max = "ci_max",
-  error_bar_width = 0.1, error_bar_thickness = 0.5,
-  dodge_width = 0.03, dodge_errorbar = TRUE, geom_size = 4,
-  obsdat = obs_indivprod, preddat = fitted_indivprod,
-  plot_abline = TRUE, abline_slope = 2, abline_intercept = -1.6)
+plot_prod(
+  year_to_plot = 1995,
+  fg_names = c("fg1", "fg2", "fg3", "fg4", "fg5", "all"),
+  model_fit = 1,
+  x_limits,
+  x_breaks = c(1, 3, 10, 30, 100, 300),
+  y_limits,
+  y_labels,
+  y_breaks,
+  fill_names = c("#BFE046", "#267038", "#27408b", "#87Cefa", "gray87"),
+  color_names = c("#BFE046", "#267038", "#27408b", "#87Cefa", "gray"),
+  x_name = "Diameter (cm)",
+  y_name = expression(paste("Growth (kg y"^-1, ")")),
+  average = "mean",
+  plot_errorbar = FALSE,
+  error_min = "ci_min",
+  error_max = "ci_max",
+  error_bar_width = 0.1,
+  error_bar_thickness = 0.5,
+  dodge_width = 0.03,
+  dodge_errorbar = TRUE,
+  geom_size = 4,
+  obsdat = obs_indivprod,
+  preddat = fitted_indivprod,
+  plot_abline = TRUE,
+  abline_slope = 2,
+  abline_intercept = -1.6
+)
 }
 \arguments{
 \item{year_to_plot}{Default 1995, currently no other years have model fits.}

@@ -4,8 +4,13 @@
 \alias{cloudbin_across_years}
 \title{Create bins of continuous data across one or more censuses}
 \usage{
-cloudbin_across_years(dat_values, dat_classes, edges,
-  mean_type = "geometric", n_census = 5)
+cloudbin_across_years(
+  dat_values,
+  dat_classes,
+  edges,
+  mean_type = "geometric",
+  n_census = 5
+)
 }
 \description{
 Create bins of continuous data across one or more censuses

@@ -4,15 +4,26 @@
 \alias{plot_dens}
 \title{Plot single model fit with multiple functional groups for density}
 \usage{
-plot_dens(year_to_plot = 1995, fg_names = c("fg1", "fg2", "fg3", "fg4",
-  "fg5", "all"), model_fit = 1, x_limits, x_breaks = c(1, 3, 10, 30,
-  100, 300), y_limits, y_breaks, y_labels, fill_names = c("black",
-  "#BFE046", "#267038", "#27408b", "#87Cefa", "gray87"),
-  color_names = c("black", "#BFE046", "#267038", "#27408b", "#87Cefa",
-  "gray"), x_name = "Diameter (cm)",
+plot_dens(
+  year_to_plot = 1995,
+  fg_names = c("fg1", "fg2", "fg3", "fg4", "fg5", "all"),
+  model_fit = 1,
+  x_limits,
+  x_breaks = c(1, 3, 10, 30, 100, 300),
+  y_limits,
+  y_breaks,
+  y_labels,
+  fill_names = c("black", "#BFE046", "#267038", "#27408b", "#87Cefa", "gray87"),
+  color_names = c("black", "#BFE046", "#267038", "#27408b", "#87Cefa", "gray"),
+  x_name = "Diameter (cm)",
   y_name = expression(paste("Density (n ha"^-1, "cm"^-1, ")")),
-  geom_size = 4, obsdat = obs_dens, preddat = pred_dens,
-  plot_abline = TRUE, abline_slope = -2, abline_intercept = 4)
+  geom_size = 4,
+  obsdat = obs_dens,
+  preddat = pred_dens,
+  plot_abline = TRUE,
+  abline_slope = -2,
+  abline_intercept = 4
+)
 }
 \arguments{
 \item{year_to_plot}{Default 1995, currently no other years have model fits.}

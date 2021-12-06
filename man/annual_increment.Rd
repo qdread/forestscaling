@@ -4,8 +4,12 @@
 \alias{annual_increment}
 \title{Annualizing biomass increment (or diameter increment)}
 \usage{
-annual_increment(meas_old, meas_new, census_interval = 5,
-  new_interval = c(2, 3))
+annual_increment(
+  meas_old,
+  meas_new,
+  census_interval = 5,
+  new_interval = c(2, 3)
+)
 }
 \description{
 census interval should be approx 5 years and desired new interval should be 1 year
